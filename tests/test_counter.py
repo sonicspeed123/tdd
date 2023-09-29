@@ -67,7 +67,20 @@ class CounterTest(TestCase):
 
         result = client.post(f'/counters/{counterName}')
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
-        print(result.get_data())
         result = client.get(f'/counters/{counterName}')
         self.assertEqual(result.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get_data(), (b'{"readMe":0}\n'))
+
+    def test_delete_a_counter(self):
+        """It should delete a counter"""
+        client = self.client
+        counterName = "deleteMe"
+
+        result = client.post(f'/counters/{counterName}')
+        self.assertEqual(result.status_code, status.HTTP_201_CREATED)
+
+        result = client.delete(f'/counters/{counterName}')
+        self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
+
+        result = client.get(f'/counters/{counterName}')
+        self.assertEqual(result.status_code, status.HTTP_200_OK)
