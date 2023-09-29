@@ -83,4 +83,4 @@ class CounterTest(TestCase):
         self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
 
         result = client.get(f'/counters/{counterName}')
-        self.assertEqual(result.status_code, status.HTTP_200_OK)
+        self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
