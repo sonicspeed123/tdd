@@ -19,7 +19,7 @@ from src.counter import app
 from src import status
 
 class CounterTest(TestCase):
-    
+
     """Counter tests"""
 
     def setUp(self):
