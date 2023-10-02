@@ -19,10 +19,12 @@ from src.counter import app
 from src import status
 
 class CounterTest(TestCase):
+    
     """Counter tests"""
 
     def setUp(self):
         self.client = app.test_client()
+
 
     def test_create_a_counter(self):
         """It should create a counter"""
@@ -30,12 +32,14 @@ class CounterTest(TestCase):
         result = client.post('/counters/foo')
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
 
+
     def test_duplicate_a_counter(self):
         """It should return an error for duplicates"""
         result = self.client.post('/counters/bar')
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
         result = self.client.post('/counters/bar')
         self.assertEqual(result.status_code, status.HTTP_409_CONFLICT)
+
 
     def test_update_a_counter(self):
         """It should update a counter"""
@@ -60,6 +64,7 @@ class CounterTest(TestCase):
         #Check that the counter value is one more than the baseline you measured
         self.assertEqual(result.get_data(), (b'{"toIncrement":1}\n'))
 
+
     def test_read_a_counter(self):
         """It should read a counter"""
         client = self.client
@@ -70,6 +75,7 @@ class CounterTest(TestCase):
         result = client.get(f'/counters/{counterName}')
         self.assertEqual(result.status_code, status.HTTP_200_OK)
         self.assertEqual(result.get_data(), (b'{"readMe":0}\n'))
+
 
     def test_delete_a_counter(self):
         """It should delete a counter"""
